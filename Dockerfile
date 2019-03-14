@@ -82,7 +82,7 @@ RUN docker-php-ext-configure mysql && \
     docker-php-ext-install zip && \
     docker-php-ext-install pcntl && \
     docker-php-ext-install ftp && \
-    docker-php-ext-install sockets && \
+    docker-php-ext-install sockets
 
 COPY docker/apache/apache2.conf /etc/apache2/apache2.conf
 COPY docker/docker-entrypoint.sh /entrypoint.sh
