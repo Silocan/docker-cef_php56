@@ -20,20 +20,18 @@ RUN apt-get update && \
         git \
         subversion \
         unzip \
-        wget \
-        locales && \
+        wget && \
     rm -rf /var/lib/apt/lists/* && \
     wget https://getcomposer.org/download/1.2.4/composer.phar -O /usr/local/bin/composer && \
     chmod a+rx /usr/local/bin/composer
 
 ## ----- Set LOCALE to UTF8
-RUN echo "fr_FR.UTF-8 UTF-8" > /etc/locale.gen && \
+RUN apt update && apt install -y locales && \
+    echo "fr_FR.UTF-8 UTF-8" > /etc/locale.gen && \
     locale-gen fr_FR.UTF-8 && \
-#    dpkg-reconfigure locales && \
     /usr/sbin/update-locale LANG=fr_FR.UTF-8
 
 ENV LOCALTIME Europe/Paris
-#ENV LC_ALL fr_FR.UTF-8
 ENV LANG fr_FR.UTF-8
 ENV LANGUAGE fr_FR.UTF-8
 
@@ -83,6 +81,8 @@ RUN docker-php-ext-configure mysql && \
     docker-php-ext-install pcntl && \
     docker-php-ext-install ftp && \
     docker-php-ext-install sockets
+    docker-php-ext-install ftp && \
+    docker-php-ext-install calendar
 
 COPY docker/apache/apache2.conf /etc/apache2/apache2.conf
 COPY docker/docker-entrypoint.sh /entrypoint.sh
