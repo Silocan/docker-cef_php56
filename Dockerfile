@@ -85,6 +85,7 @@ RUN docker-php-ext-configure mysql && \
 
 COPY docker/apache/apache2.conf /etc/apache2/apache2.conf
 COPY docker/docker-entrypoint.sh /entrypoint.sh
+RUN chmod +x /entrypoint.sh
 
 WORKDIR /var/www
 
